@@ -1,19 +1,35 @@
-import { Keypair, Connection, Commitment } from "@solana/web3.js";
-import { createMint } from '@solana/spl-token';
-import wallet from "../wba-wallet.json"
+import { createMint } from "@solana/spl-token";
+import {
+  Cluster,
+  Commitment,
+  Connection,
+  Keypair,
+  clusterApiUrl,
+} from "@solana/web3.js";
+import wallet from "../wallets/my-wba-wallet.json";
 
-// Import our keypair from the wallet file
 const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
 
-//Create a Solana devnet connection
+const cluster: Cluster = "devnet";
 const commitment: Commitment = "confirmed";
-const connection = new Connection("https://api.devnet.solana.com", commitment);
+const connection = new Connection(clusterApiUrl(cluster), commitment);
 
 (async () => {
-    try {
-        // Start here
-        // const mint = ???
-    } catch(error) {
-        console.log(`Oops, something went wrong: ${error}`)
-    }
-})()
+  try {
+    const mintPubkey = await createMint(
+      connection,
+      keypair,
+      keypair.publicKey,
+      null,
+      6
+    );
+    console.log(`Created mint. Pubkey: ${mintPubkey}`);
+  } catch (error) {
+    console.log(`Oops, something went wrong: ${error}`);
+  }
+})();
+
+/*
+> Output:
+Created mint. Pubkey: 5URbX6zTaujCAKLkjWAYyaHEoyjn9ntZTDr8ipcu7Cni
+*/

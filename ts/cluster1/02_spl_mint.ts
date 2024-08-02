@@ -1,29 +1,43 @@
-import { Keypair, PublicKey, Connection, Commitment } from "@solana/web3.js";
-import { getOrCreateAssociatedTokenAccount, mintTo } from '@solana/spl-token';
-import wallet from "../wba-wallet.json"
+import { getOrCreateAssociatedTokenAccount, mintTo } from "@solana/spl-token";
+import { Connection, Keypair, PublicKey, clusterApiUrl } from "@solana/web3.js";
+import wallet from "../wallets/my-wba-wallet.json";
 
-// Import our keypair from the wallet file
 const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
 
-//Create a Solana devnet connection
-const commitment: Commitment = "confirmed";
-const connection = new Connection("https://api.devnet.solana.com", commitment);
+const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
 
-const token_decimals = 1_000_000n;
+const decimalsPerToken = 1_000_000n; // decimals: 6
 
-// Mint address
-const mint = new PublicKey("<mint address>");
+const mintPubkey = new PublicKey(
+  "5URbX6zTaujCAKLkjWAYyaHEoyjn9ntZTDr8ipcu7Cni"
+);
 
 (async () => {
-    try {
-        // Create an ATA
-        // const ata = ???
-        // console.log(`Your ata is: ${ata.address.toBase58()}`);
+  try {
+    const ata = await getOrCreateAssociatedTokenAccount(
+      connection,
+      keypair,
+      mintPubkey,
+      keypair.publicKey
+    );
+    console.log(`Your ATA address is: ${ata.address.toBase58()}`);
 
-        // Mint to ATA
-        // const mintTx = ???
-        // console.log(`Your mint txid: ${mintTx}`);
-    } catch(error) {
-        console.log(`Oops, something went wrong: ${error}`)
-    }
-})()
+    const sig = await mintTo(
+      connection,
+      keypair,
+      mintPubkey,
+      ata.address,
+      keypair,
+      100n * decimalsPerToken
+    );
+    console.log(`Minted 100 tokens to your ATA. Transaction signature: ${sig}`);
+  } catch (error) {
+    console.log(`Oops, something went wrong: ${error}`);
+  }
+})();
+
+/*
+> Output:
+Your ATA address is: 9VBbBro4BeoksiR8mkn6JKYS3tGf3heDuxn3niSFqeYF
+Minted 100 tokens to your ATA. Transaction signature: 54oscDjWzGMTZPiYoZJaqSbj5Xt2MNtj5VoKeW7KRJUktrPc1XRpbFBfpGgzoUh1xVTPwB1w7i6hkQAMEikZXAoC
+*/
