@@ -6,11 +6,11 @@ const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
 
 const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
 
-const decimalsPerToken = 1_000_000n; // decimals: 6
-
 const mintPubkey = new PublicKey(
   "5URbX6zTaujCAKLkjWAYyaHEoyjn9ntZTDr8ipcu7Cni"
 );
+
+const decimalsPerToken = 1_000_000n; // decimals: 6
 
 (async () => {
   try {
