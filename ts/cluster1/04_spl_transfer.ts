@@ -1,28 +1,52 @@
-import { Commitment, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js"
-import wallet from "../wba-wallet.json"
 import { getOrCreateAssociatedTokenAccount, transfer } from "@solana/spl-token";
+import { Connection, Keypair, PublicKey, clusterApiUrl } from "@solana/web3.js";
+import wallet from "../wallets/my-wba-wallet.json";
 
-// We're going to import our keypair from the wallet file
 const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
 
-//Create a Solana devnet connection
-const commitment: Commitment = "confirmed";
-const connection = new Connection("https://api.devnet.solana.com", commitment);
+const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
 
-// Mint address
-const mint = new PublicKey("<mint address>");
+const mintPubkey = new PublicKey(
+  "5URbX6zTaujCAKLkjWAYyaHEoyjn9ntZTDr8ipcu7Cni"
+);
 
-// Recipient address
-const to = new PublicKey("<receiver address>");
+const decimalsPerToken = 1_000_000n; // decimals: 6
+
+const toPubkey = new PublicKey("CvgLY6kKfrfwcUguxfD9F9XoruNojgcsKRMgzVAfWkSs");
 
 (async () => {
-    try {
-        // Get the token account of the fromWallet address, and if it does not exist, create it
+  try {
+    const fromAta = await getOrCreateAssociatedTokenAccount(
+      connection,
+      keypair,
+      mintPubkey,
+      keypair.publicKey
+    );
 
-        // Get the token account of the toWallet address, and if it does not exist, create it
+    const toAta = await getOrCreateAssociatedTokenAccount(
+      connection,
+      keypair,
+      mintPubkey,
+      toPubkey
+    );
 
-        // Transfer the new token to the "toTokenAccount" we just created
-    } catch(e) {
-        console.error(`Oops, something went wrong: ${e}`)
-    }
+    const sig = await transfer(
+      connection,
+      keypair,
+      fromAta.address,
+      toAta.address,
+      keypair,
+      20n * decimalsPerToken
+    );
+    console.log(
+      `Transferred 20 tokens to ATA at ${toAta.address}. Transaction signature: ${sig}`
+    );
+  } catch (e) {
+    console.error(`Oops, something went wrong: ${e}`);
+  }
 })();
+
+/*
+> Output:
+Transferred 20 tokens to ATA at 4KjRk86pSvCuRoTnZhce7QuQvYSzzvoj8VcRsjNaqGyo. Transaction signature: 3c5Z9w5Pfzui7JkCnNoY3YXyAYrESHdmr73X7MtWptscEUz2hEMZECG7QdLwvWJ5PAXN3a6yZVTFCRqZPvyqULbn
+*/
