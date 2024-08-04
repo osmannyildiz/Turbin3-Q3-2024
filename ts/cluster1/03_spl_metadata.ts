@@ -56,8 +56,8 @@ umi.use(signerIdentity(signer));
         result.signature
       )}`
     );
-  } catch (e) {
-    console.error(`Oops, something went wrong: ${e}`);
+  } catch (error) {
+    console.error(`Oops, something went wrong: ${error}`);
   }
 })();
 

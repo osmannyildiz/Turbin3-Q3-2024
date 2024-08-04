@@ -1,45 +1,54 @@
-import wallet from "../wba-wallet.json"
-import { createUmi } from "@metaplex-foundation/umi-bundle-defaults"
-import { createGenericFile, createSignerFromKeypair, signerIdentity } from "@metaplex-foundation/umi"
-import { irysUploader } from "@metaplex-foundation/umi-uploader-irys"
+import {
+  createSignerFromKeypair,
+  signerIdentity,
+} from "@metaplex-foundation/umi";
+import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
+import { irysUploader } from "@metaplex-foundation/umi-uploader-irys";
+import { clusterApiUrl } from "@solana/web3.js";
+import wallet from "../wallets/my-wba-wallet.json";
 
-// Create a devnet connection
-const umi = createUmi('https://api.devnet.solana.com');
+const umi = createUmi(clusterApiUrl("devnet"));
 
-let keypair = umi.eddsa.createKeypairFromSecretKey(new Uint8Array(wallet));
+const keypair = umi.eddsa.createKeypairFromSecretKey(new Uint8Array(wallet));
 const signer = createSignerFromKeypair(umi, keypair);
-
-umi.use(irysUploader());
 umi.use(signerIdentity(signer));
 
-(async () => {
-    try {
-        // Follow this JSON structure
-        // https://docs.metaplex.com/programs/token-metadata/changelog/v1.0#json-structure
+umi.use(irysUploader());
 
-        // const image = ???
-        // const metadata = {
-        //     name: "?",
-        //     symbol: "?",
-        //     description: "?",
-        //     image: "?",
-        //     attributes: [
-        //         {trait_type: '?', value: '?'}
-        //     ],
-        //     properties: {
-        //         files: [
-        //             {
-        //                 type: "image/png",
-        //                 uri: "?"
-        //             },
-        //         ]
-        //     },
-        //     creators: []
-        // };
-        // const myUri = ???
-        // console.log("Your metadata URI: ", myUri);
-    }
-    catch(error) {
-        console.log("Oops.. Something went wrong", error);
-    }
+(async () => {
+  try {
+    // Follow this JSON structure:
+    // https://developers.metaplex.com/token-metadata#a-json-standard
+
+    const imageUri =
+      "https://arweave.net/X54lK7naxP4h_TaR1rIdxWshSjDMheU6_515vI1UpIE";
+    const metadata = {
+      name: "Awesome Rug",
+      symbol: "AWERUG",
+      description: "This rug is awesome.",
+      image: imageUri,
+      attributes: [
+        { trait_type: "Awesomeness", value: "100" },
+        { trait_type: "Rugness", value: "100" },
+      ],
+      properties: {
+        files: [
+          {
+            type: "image/png",
+            uri: imageUri,
+          },
+        ],
+      },
+    };
+
+    const uri = await umi.uploader.uploadJson(metadata);
+    console.log(`Metadata JSON uploaded. URI: ${uri}`);
+  } catch (error) {
+    console.error(`Oops, something went wrong: ${error}`);
+  }
 })();
+
+/*
+> Output:
+Metadata JSON uploaded. URI: https://arweave.net/0vJOmN9_9fDFKFFaOmSblJh66otH67_Gxm8hBOdEGC4
+*/

@@ -25,7 +25,7 @@ const connection = new Connection(clusterApiUrl(cluster), commitment);
     );
     console.log(`Created mint. Pubkey: ${mintPubkey}`);
   } catch (error) {
-    console.log(`Oops, something went wrong: ${error}`);
+    console.error(`Oops, something went wrong: ${error}`);
   }
 })();
 

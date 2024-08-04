@@ -32,7 +32,7 @@ const decimalsPerToken = 1_000_000n; // decimals: 6
     );
     console.log(`Minted 100 tokens to your ATA. Transaction signature: ${sig}`);
   } catch (error) {
-    console.log(`Oops, something went wrong: ${error}`);
+    console.error(`Oops, something went wrong: ${error}`);
   }
 })();
 

@@ -41,8 +41,8 @@ const toPubkey = new PublicKey("CvgLY6kKfrfwcUguxfD9F9XoruNojgcsKRMgzVAfWkSs");
     console.log(
       `Transferred 20 tokens to ATA at ${toAta.address}. Transaction signature: ${sig}`
     );
-  } catch (e) {
-    console.error(`Oops, something went wrong: ${e}`);
+  } catch (error) {
+    console.error(`Oops, something went wrong: ${error}`);
   }
 })();
 
