@@ -1,4 +1,4 @@
-# solana-starter
+# Turbin3 Builders Course (Q3, 2024)
 
 ## Transactions
 
