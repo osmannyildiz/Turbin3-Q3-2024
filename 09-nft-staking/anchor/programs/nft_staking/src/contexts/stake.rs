@@ -9,7 +9,7 @@ use anchor_spl::{
     token::{approve, Approve, Mint, Token, TokenAccount},
 };
 
-use crate::errors::ErrorCode;
+use crate::errors::CustomErrorCode;
 use crate::state::{Config, StakeData, UserData};
 
 #[derive(Accounts)]
@@ -26,7 +26,7 @@ pub struct Stake<'info> {
     #[account(
         mut,
         seeds = [b"user_data", user.key().as_ref()],
-        bump = user_data.bump
+        bump = user_data.bump // TODO Does this make sense?
     )]
     user_data: Account<'info, UserData>,
 
@@ -69,7 +69,9 @@ pub struct Stake<'info> {
     nft_collection: Account<'info, Mint>,
 
     #[account(
-        mut,
+        // TODO Does this work as is?
+        // init,
+        // payer = user,
         associated_token::mint = nft_mint,
         associated_token::authority = user
     )]
@@ -84,22 +86,29 @@ pub struct Stake<'info> {
 
 impl<'info> Stake<'info> {
     pub fn stake(&mut self, bumps: &StakeBumps) -> Result<()> {
-        // STEP 0: Check
+        // STEP 0: Check staked count
         require!(
             self.user_data.staked_count < self.config.max_stakes,
-            ErrorCode::MaxStakesReached
+            CustomErrorCode::MaxStakesReached
         );
 
         // STEP 1: Delegate
         let accounts = Approve {
-            to: self.user_ata_for_nft.to_account_info(),
-            delegate: self.config.to_account_info(),
-            authority: self.user.to_account_info(),
+            to: self.user_ata_for_nft.to_account_info(), // The account that holds the tokens
+            delegate: self.stake_data.to_account_info(), // The account that can use the tokens (under permission of the owner)
+            authority: self.user.to_account_info(), // The account that can use the tokens (the owner)
         };
         let ctx = CpiContext::new(self.token_program.to_account_info(), accounts);
         approve(ctx, 1)?;
 
-        // STEP 2: Freeze
+        // STEP 2: Freeze NFT token account
+        let stake_data_seeds = &[
+            b"stake_data".as_ref(),
+            self.config.to_account_info().key.as_ref(),
+            self.nft_mint.to_account_info().key.as_ref(),
+            &[bumps.stake_data],
+        ];
+        let signers_seeds = &[&stake_data_seeds[..]];
         let metadata_program = &self.metadata_program.to_account_info();
         let delegate = &self.stake_data.to_account_info();
         let token_account = &self.user_ata_for_nft.to_account_info();
@@ -116,13 +125,13 @@ impl<'info> Stake<'info> {
                 token_program,
             },
         )
-        .invoke()?;
+        .invoke_signed(signers_seeds)?;
 
         // STEP 3: Save stake data
         self.stake_data.set_inner(StakeData {
             owner: self.user.key(),
             mint: self.nft_mint.key(),
-            last_updated: Clock::get()?.unix_timestamp,
+            staked_at: Clock::get()?.unix_timestamp,
             bump: bumps.stake_data,
         });
 

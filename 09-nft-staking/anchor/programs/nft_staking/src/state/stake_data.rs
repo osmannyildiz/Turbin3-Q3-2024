@@ -5,6 +5,6 @@ use anchor_lang::prelude::*;
 pub struct StakeData {
     pub owner: Pubkey,
     pub mint: Pubkey,
-    pub last_updated: i64,
+    pub staked_at: i64, // Unix timestamp
     pub bump: u8,
 }
