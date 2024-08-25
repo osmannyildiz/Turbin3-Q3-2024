@@ -69,9 +69,8 @@ pub struct Stake<'info> {
     nft_collection: Account<'info, Mint>,
 
     #[account(
-        // TODO Does this work as is?
-        // init,
-        // payer = user,
+        // TODO Is mut necessary here?
+        mut,
         associated_token::mint = nft_mint,
         associated_token::authority = user
     )]

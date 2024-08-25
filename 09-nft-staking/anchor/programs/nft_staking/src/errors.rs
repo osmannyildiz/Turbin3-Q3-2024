@@ -7,4 +7,8 @@ pub enum CustomErrorCode {
 
     #[msg("You haven't reached the minimum freeze period yet.")]
     FreezePeriodNotOver,
+
+    // incorrect mint
+    // incorrect collection
+    // collection not verified
 }

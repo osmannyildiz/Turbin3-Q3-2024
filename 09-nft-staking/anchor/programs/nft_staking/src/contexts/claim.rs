@@ -14,19 +14,20 @@ pub struct Claim<'info> {
 
     #[account(
         seeds = [b"config"],
-        bump
+        bump = config.bump // TODO Does this make sense?
     )]
     config: Account<'info, Config>,
 
     #[account(
         mut,
         seeds = [b"user_data", user.key().as_ref()],
-        bump
+        bump = user_data.bump // TODO Does this make sense?
     )]
     user_data: Account<'info, UserData>,
 
     #[account(
         // TODO Are these necessary?
+        // mut,
         // mint::authority = config,
         // mint::token_program = token_program,
         seeds = [b"rewards_mint", config.key().as_ref()],

@@ -17,6 +17,7 @@ pub struct Unstake<'info> {
     #[account(mut)]
     user: Signer<'info>,
 
+    // TODO Is this annotation not needed?
     #[account(
         seeds = [b"config"],
         bump
@@ -53,9 +54,8 @@ pub struct Unstake<'info> {
     nft_edition: Account<'info, MasterEditionAccount>,
 
     #[account(
-        // TODO Should we close this account?
-        // mut,
-        // close = user,
+        // TODO Is mut necessary here?
+        mut,
         associated_token::mint = nft_mint,
         associated_token::authority = user
     )]

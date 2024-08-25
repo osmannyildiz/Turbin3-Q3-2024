@@ -20,8 +20,8 @@ pub struct Init<'info> {
     #[account(
         init,
         payer = admin,
-        mint::authority = config,
         mint::decimals = 6,
+        mint::authority = config,
         mint::token_program = token_program,
         seeds = [b"rewards_mint", config.key().as_ref()],
         bump
