@@ -107,7 +107,7 @@ impl<'info> Stake<'info> {
             self.nft_mint.to_account_info().key.as_ref(),
             &[bumps.stake_data],
         ];
-        let signers_seeds = &[&stake_data_seeds[..]];
+        let signer_seeds = &[&stake_data_seeds[..]];
         let metadata_program = &self.metadata_program.to_account_info();
         let delegate = &self.stake_data.to_account_info();
         let token_account = &self.user_ata_for_nft.to_account_info();
@@ -124,7 +124,7 @@ impl<'info> Stake<'info> {
                 token_program,
             },
         )
-        .invoke_signed(signers_seeds)?;
+        .invoke_signed(signer_seeds)?;
 
         // STEP 3: Save stake data
         self.stake_data.set_inner(StakeData {

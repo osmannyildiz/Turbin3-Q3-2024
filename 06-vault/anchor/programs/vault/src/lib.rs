@@ -77,7 +77,7 @@ pub struct InitializeAccs<'info> {
         payer = user,
         seeds = [b"vault_state", user.key().as_ref()],
         bump,
-        space = VaultState::INIT_SPACE
+        space = 8 + VaultState::INIT_SPACE
     )]
     pub vault_state: Account<'info, VaultState>,
 
@@ -145,5 +145,5 @@ pub struct VaultState {
     pub vault_bump: u8,
 }
 impl Space for VaultState {
-    const INIT_SPACE: usize = 8 + 1 + 1;
+    const INIT_SPACE: usize = 1 + 1;
 }
