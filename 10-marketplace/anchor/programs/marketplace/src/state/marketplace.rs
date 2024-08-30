@@ -5,7 +5,7 @@ pub struct Marketplace {
     pub admin: Pubkey,
     pub name: String,
     pub fee: u16,
-    pub rewards_mint_bump: u8,
+    // pub rewards_mint_bump: u8,
     pub treasury_bump: u8,
     pub bump: u8,
 }

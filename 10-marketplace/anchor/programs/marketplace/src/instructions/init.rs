@@ -18,16 +18,16 @@ pub struct Init<'info> {
     )]
     marketplace: Account<'info, Marketplace>,
 
-    #[account(
-        init,
-        payer = admin,
-        mint::decimals = 6,
-        mint::authority = marketplace,
-        mint::token_program = token_program,
-        seeds = [b"rewards_mint", marketplace.key().as_ref()],
-        bump
-    )]
-    rewards_mint: InterfaceAccount<'info, Mint>,
+    // #[account(
+    //     init,
+    //     payer = admin,
+    //     mint::decimals = 6,
+    //     mint::authority = marketplace,
+    //     mint::token_program = token_program,
+    //     seeds = [b"rewards_mint", marketplace.key().as_ref()],
+    //     bump
+    // )]
+    // rewards_mint: InterfaceAccount<'info, Mint>,
 
     #[account(
         seeds = [b"treasury", marketplace.key().as_ref()],
@@ -51,7 +51,7 @@ impl<'info> Init<'info> {
             admin: self.admin.key(),
             name,
             fee,
-            rewards_mint_bump: bumps.rewards_mint,
+            // rewards_mint_bump: bumps.rewards_mint,
             treasury_bump: bumps.treasury,
             bump: bumps.marketplace,
         });
