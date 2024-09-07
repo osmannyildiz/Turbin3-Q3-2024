@@ -28,12 +28,12 @@ pub struct Take<'info> {
     #[account(
         mint::token_program = token_program
     )]
-    mint_a: InterfaceAccount<'info, Mint>,
+    mint_a: Box<InterfaceAccount<'info, Mint>>,
 
     #[account(
         mint::token_program = token_program
     )]
-    mint_b: InterfaceAccount<'info, Mint>,
+    mint_b: Box<InterfaceAccount<'info, Mint>>,
 
     // Receives Token A's from the escrow
     #[account(
@@ -43,7 +43,7 @@ pub struct Take<'info> {
         associated_token::authority = taker,
         associated_token::token_program = token_program
     )]
-    taker_ata_a: InterfaceAccount<'info, TokenAccount>,
+    taker_ata_a: Box<InterfaceAccount<'info, TokenAccount>>,
 
     // Sends Token B's to the maker
     #[account(
@@ -53,7 +53,7 @@ pub struct Take<'info> {
         associated_token::token_program = token_program
         // constraint = taker_ata_b.amount >= escrow_data.receive_amount @ EscrowError::InsufficientBalance
     )]
-    taker_ata_b: InterfaceAccount<'info, TokenAccount>,
+    taker_ata_b: Box<InterfaceAccount<'info, TokenAccount>>,
 
     // Receives Token B's from the taker
     #[account(
@@ -63,7 +63,7 @@ pub struct Take<'info> {
         associated_token::authority = maker,
         associated_token::token_program = token_program
     )]
-    maker_ata_b: InterfaceAccount<'info, TokenAccount>,
+    maker_ata_b: Box<InterfaceAccount<'info, TokenAccount>>,
 
     // Sends Token A's to the taker
     #[account(
@@ -72,7 +72,7 @@ pub struct Take<'info> {
         associated_token::authority = escrow_data,
         associated_token::token_program = token_program
     )]
-    escrow_ata_a: InterfaceAccount<'info, TokenAccount>,
+    escrow_ata_a: Box<InterfaceAccount<'info, TokenAccount>>,
 
     token_program: Interface<'info, TokenInterface>,
 
