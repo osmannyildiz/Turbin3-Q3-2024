@@ -31,7 +31,8 @@ export default function Home() {
   };
 
   const createMeme = async () => {
-    const sig = await remixers.methods.createMeme().rpc();
+    const seed = 123;
+    const sig = await remixers.methods.createMeme(seed).rpc();
     console.log("Success! Check 'solana logs'.");
   };
 

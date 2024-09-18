@@ -19,7 +19,7 @@ pub mod remixers {
         ctx.accounts.initialize()
     }
 
-    pub fn create_meme(ctx: Context<CreateMeme>) -> Result<()> {
-        ctx.accounts.create_meme()
+    pub fn create_meme(ctx: Context<CreateMeme>, seed: u32) -> Result<()> {
+        ctx.accounts.create_meme(seed, &ctx.bumps)
     }
 }

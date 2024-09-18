@@ -30,9 +30,39 @@ export type Remixers = {
           "name": "maker",
           "writable": true,
           "signer": true
+        },
+        {
+          "name": "meme",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  101,
+                  109,
+                  101
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "seed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
         }
       ],
-      "args": []
+      "args": [
+        {
+          "name": "seed",
+          "type": "u32"
+        }
+      ]
     },
     {
       "name": "initialize",
@@ -56,11 +86,48 @@ export type Remixers = {
       "args": []
     }
   ],
+  "accounts": [
+    {
+      "name": "meme",
+      "discriminator": [
+        232,
+        224,
+        0,
+        147,
+        187,
+        194,
+        135,
+        26
+      ]
+    }
+  ],
   "errors": [
     {
       "code": 6000,
       "name": "customError",
       "msg": "Custom error message"
+    }
+  ],
+  "types": [
+    {
+      "name": "meme",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "seed",
+            "type": "u32"
+          },
+          {
+            "name": "maker",
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
     }
   ],
   "constants": [
