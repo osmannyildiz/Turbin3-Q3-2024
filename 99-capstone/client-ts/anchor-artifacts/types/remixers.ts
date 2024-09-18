@@ -14,6 +14,27 @@ export type Remixers = {
   },
   "instructions": [
     {
+      "name": "createMeme",
+      "discriminator": [
+        0,
+        44,
+        207,
+        61,
+        251,
+        247,
+        167,
+        214
+      ],
+      "accounts": [
+        {
+          "name": "maker",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
       "name": "initialize",
       "discriminator": [
         175,
@@ -25,7 +46,13 @@ export type Remixers = {
         155,
         237
       ],
-      "accounts": [],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        }
+      ],
       "args": []
     }
   ],

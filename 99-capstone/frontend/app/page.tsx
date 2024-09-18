@@ -25,8 +25,13 @@ export default function Home() {
     setIsClient(true);
   }, []);
 
-  const onButtonClick = async () => {
+  const initialize = async () => {
     const sig = await remixers.methods.initialize().rpc();
+    console.log("Success! Check 'solana logs'.");
+  };
+
+  const createMeme = async () => {
+    const sig = await remixers.methods.createMeme().rpc();
     console.log("Success! Check 'solana logs'.");
   };
 
@@ -41,8 +46,11 @@ export default function Home() {
 
       {isClient && <WalletMultiButton style={{}} />}
 
-      <button type="button" onClick={() => onButtonClick()}>
-        click me
+      <button type="button" onClick={() => initialize()}>
+        initialize
+      </button>
+      <button type="button" onClick={() => createMeme()}>
+        create meme
       </button>
     </>
   );

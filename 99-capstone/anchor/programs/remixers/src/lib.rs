@@ -16,6 +16,10 @@ pub mod remixers {
     use super::*;
 
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
-        initialize::handler(ctx)
+        ctx.accounts.initialize()
+    }
+
+    pub fn create_meme(ctx: Context<CreateMeme>) -> Result<()> {
+        ctx.accounts.create_meme()
     }
 }
