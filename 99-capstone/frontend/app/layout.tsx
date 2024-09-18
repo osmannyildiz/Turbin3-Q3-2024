@@ -1,3 +1,4 @@
+import AppWalletProvider from "@/components/AppWalletProvider";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -14,10 +15,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <header>
-          <div className="text-3xl font-bold">Remixers</div>
-        </header>
-        <main>{children}</main>
+        <AppWalletProvider>
+          <header>
+            <div className="text-3xl font-bold">Remixers</div>
+          </header>
+          <main>{children}</main>
+        </AppWalletProvider>
       </body>
     </html>
   );
