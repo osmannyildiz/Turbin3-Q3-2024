@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-use crate::Meme;
+use crate::{Meme, ACCOUNT_TYPE_MEME};
 
 #[derive(Accounts)]
 #[instruction(seed: u32)]
@@ -23,6 +23,7 @@ pub struct CreateMeme<'info> {
 impl<'info> CreateMeme<'info> {
     pub fn create_meme(&mut self, seed: u32, bumps: &CreateMemeBumps) -> Result<()> {
         self.meme.set_inner(Meme {
+            account_type: ACCOUNT_TYPE_MEME,
             seed,
             maker: self.maker.key(),
             bump: bumps.meme,

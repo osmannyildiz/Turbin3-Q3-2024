@@ -1,21 +1,13 @@
 "use client";
 
 import useRemixers from "@/programs/useRemixers";
-import { AnchorProvider, setProvider } from "@coral-xyz/anchor";
-import { useAnchorWallet, useConnection } from "@solana/wallet-adapter-react";
+import { useConnection } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import bs58 from "bs58";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  // Anchor provider init
-  // TODO Move these to a new component
   const { connection } = useConnection();
-  const wallet = useAnchorWallet();
-  const provider = new AnchorProvider(connection, wallet!, {
-    commitment: "confirmed",
-  });
-  setProvider(provider);
-
   const remixers = useRemixers();
 
   // Don't render the wallet button on the server to avoid hydration error
@@ -26,14 +18,34 @@ export default function Home() {
   }, []);
 
   const initialize = async () => {
+    if (!remixers) return;
     const sig = await remixers.methods.initialize().rpc();
-    console.log("Success! Check 'solana logs'.");
+    console.log(`✅ Success! Sig: ${sig}`);
   };
 
   const createMeme = async () => {
+    if (!remixers) return;
     const seed = 123;
     const sig = await remixers.methods.createMeme(seed).rpc();
-    console.log("Success! Check 'solana logs'.");
+    console.log(`✅ Success! Sig: ${sig}`);
+  };
+
+  const fetchMemes = async () => {
+    if (!remixers) return;
+    const foo = await connection.getParsedProgramAccounts(remixers.programId, {
+      filters: [
+        // {
+        //   dataSize: 165, // number of bytes
+        // },
+        {
+          memcmp: {
+            offset: 8,
+            bytes: bs58.encode(Uint8Array.from([7])),
+          },
+        },
+      ],
+    });
+    console.log(foo);
   };
 
   return (
@@ -45,13 +57,16 @@ export default function Home() {
         minima.
       </p>
 
-      {isClient && <WalletMultiButton style={{}} />}
+      {isClient && <WalletMultiButton />}
 
       <button type="button" onClick={() => initialize()}>
         initialize
       </button>
       <button type="button" onClick={() => createMeme()}>
         create meme
+      </button>
+      <button type="button" onClick={() => fetchMemes()}>
+        fetch memes
       </button>
     </>
   );
