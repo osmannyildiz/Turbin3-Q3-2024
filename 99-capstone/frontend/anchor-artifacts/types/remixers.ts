@@ -115,10 +115,6 @@ export type Remixers = {
         "kind": "struct",
         "fields": [
           {
-            "name": "accountType",
-            "type": "u8"
-          },
-          {
             "name": "seed",
             "type": "u32"
           },
@@ -135,11 +131,6 @@ export type Remixers = {
     }
   ],
   "constants": [
-    {
-      "name": "accountTypeMeme",
-      "type": "u8",
-      "value": "7"
-    },
     {
       "name": "seed",
       "type": "string",

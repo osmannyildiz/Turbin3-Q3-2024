@@ -109,10 +109,6 @@
         "kind": "struct",
         "fields": [
           {
-            "name": "account_type",
-            "type": "u8"
-          },
-          {
             "name": "seed",
             "type": "u32"
           },
@@ -129,11 +125,6 @@
     }
   ],
   "constants": [
-    {
-      "name": "ACCOUNT_TYPE_MEME",
-      "type": "u8",
-      "value": "7"
-    },
     {
       "name": "SEED",
       "type": "string",

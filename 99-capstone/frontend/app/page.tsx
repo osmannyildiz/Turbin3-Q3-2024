@@ -1,13 +1,10 @@
 "use client";
 
 import useRemixers from "@/programs/useRemixers";
-import { useConnection } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import bs58 from "bs58";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const { connection } = useConnection();
   const remixers = useRemixers();
 
   // Don't render the wallet button on the server to avoid hydration error
@@ -32,19 +29,7 @@ export default function Home() {
 
   const fetchMemes = async () => {
     if (!remixers) return;
-    const foo = await connection.getParsedProgramAccounts(remixers.programId, {
-      filters: [
-        // {
-        //   dataSize: 165, // number of bytes
-        // },
-        {
-          memcmp: {
-            offset: 8,
-            bytes: bs58.encode(Uint8Array.from([7])),
-          },
-        },
-      ],
-    });
+    const foo = await remixers.account.meme.all();
     console.log(foo);
   };
 
