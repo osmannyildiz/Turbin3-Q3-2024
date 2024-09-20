@@ -1,24 +1,24 @@
 interface Props {
   width?: number;
   height?: number;
-  style?: React.CSSProperties;
   className?: string;
+  style?: React.CSSProperties;
   forLightBg?: boolean;
 }
 
 export default function LogoFull({
   width,
   height,
-  style,
   className,
+  style,
   forLightBg = false,
 }: Props) {
   return (
     <svg
       width={width}
       height={height}
-      style={style}
       className={className}
+      style={style}
       viewBox="0 0 640.31 120"
       xmlns="http://www.w3.org/2000/svg"
     >

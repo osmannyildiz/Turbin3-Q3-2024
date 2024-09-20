@@ -1,8 +1,8 @@
+import "@/app/globals.css";
 import AppWalletProvider from "@/components/AppWalletProvider";
 import LogoFull from "@/components/LogoFull";
 import Spinner from "@/components/Spinner";
 import type { Metadata } from "next";
-import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Remixers",

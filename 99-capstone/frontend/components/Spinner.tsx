@@ -2,8 +2,7 @@
 
 import { useStore } from "@/store";
 import cn from "@/utils/classNamesHelper";
-import JustX from "./JustX";
-import styles from "./Spinner.module.css";
+import LogoAnimated from "./LogoAnimated";
 
 export default function Spinner() {
   const isShowSpinner = useStore((state) => state.isShowSpinner);
@@ -15,11 +14,7 @@ export default function Spinner() {
         !isShowSpinner && "hidden"
       )}
     >
-      <div className="relative w-fit">
-        <JustX height={256} className={styles.zero} />
-        <JustX height={256} className={styles.one} />
-        <JustX height={256} className={styles.two} />
-      </div>
+      <LogoAnimated height={256} />
     </div>
   );
 }
