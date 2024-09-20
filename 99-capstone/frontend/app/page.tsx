@@ -1,11 +1,22 @@
 "use client";
 
 import useRemixers from "@/programs/useRemixers";
+import { useStore } from "@/store";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const remixers = useRemixers();
+  const setIsShowSpinner = useStore((state) => state.setIsShowSpinner);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsShowSpinner(false);
+    }, 1000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   // Don't render the wallet button on the server to avoid hydration error
   // Thanks Next.js, I hate this
