@@ -1,6 +1,6 @@
 import "@/app/globals.css";
 import AppWalletProvider from "@/components/AppWalletProvider";
-import LogoFull from "@/components/LogoFull";
+import Header from "@/components/Header";
 import Spinner from "@/components/Spinner";
 import type { Metadata } from "next";
 
@@ -18,12 +18,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AppWalletProvider>
-          <Spinner />
-          <header className="flex justify-center py-4">
-            <LogoFull height={60} />
-          </header>
+          <Header />
           <main>{children}</main>
         </AppWalletProvider>
+        <Spinner />
       </body>
     </html>
   );

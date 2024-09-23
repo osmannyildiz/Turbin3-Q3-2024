@@ -2,8 +2,7 @@
 
 import useRemixers from "@/programs/useRemixers";
 import { useStore } from "@/store";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Home() {
   const remixers = useRemixers();
@@ -16,13 +15,6 @@ export default function Home() {
     return () => {
       clearTimeout(timeout);
     };
-  }, []);
-
-  // Don't render the wallet button on the server to avoid hydration error
-  // Thanks Next.js, I hate this
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => {
-    setIsClient(true);
   }, []);
 
   const initialize = async () => {
@@ -52,8 +44,6 @@ export default function Home() {
         quos. Non illum placeat architecto harum repudiandae ipsa suscipit
         minima.
       </p>
-
-      {isClient && <WalletMultiButton />}
 
       <button type="button" onClick={() => initialize()}>
         initialize
