@@ -3,11 +3,14 @@
 import MemeGrid from "@/components/MemeGrid";
 import useRemixers from "@/programs/useRemixers";
 import { useStore } from "@/store";
-import { useEffect } from "react";
+import { Meme } from "@/types";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const remixers = useRemixers();
   const setIsShowSpinner = useStore((state) => state.setIsShowSpinner);
+
+  const [memes, setMemes] = useState<Meme[]>([]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -17,6 +20,10 @@ export default function Home() {
       clearTimeout(timeout);
     };
   }, []);
+
+  useEffect(() => {
+    fetchMemes();
+  }, [remixers]);
 
   const initialize = async () => {
     if (!remixers) return;
@@ -33,13 +40,16 @@ export default function Home() {
 
   const fetchMemes = async () => {
     if (!remixers) return;
-    const foo = await remixers.account.meme.all();
-    console.log(foo);
+    const fetchedMemes = (await remixers.account.meme.all()).map((meme) => ({
+      publicKey: meme.publicKey,
+      ...meme.account,
+    }));
+    setMemes(fetchedMemes);
   };
 
   return (
     <>
-      <MemeGrid className="max-w-[900px] mx-auto" />
+      <MemeGrid memes={memes} className="max-w-[900px] mx-auto" />
 
       <button type="button" onClick={() => initialize()}>
         initialize

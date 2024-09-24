@@ -22,11 +22,11 @@ export default function LogoMini({ width, height, className, style }: Props) {
           y="-.065812"
           width="1.1818"
           height="1.159"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
           <feFlood
-            flood-color="rgb(0,0,0)"
-            flood-opacity=".2"
+            floodColor="rgb(0,0,0)"
+            floodOpacity=".2"
             in="SourceGraphic"
             result="flood"
           />
@@ -45,11 +45,11 @@ export default function LogoMini({ width, height, className, style }: Props) {
           y="-.065812"
           width="1.1818"
           height="1.159"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
           <feFlood
-            flood-color="rgb(0,0,0)"
-            flood-opacity=".2"
+            floodColor="rgb(0,0,0)"
+            floodOpacity=".2"
             in="SourceGraphic"
             result="flood"
           />
@@ -68,11 +68,11 @@ export default function LogoMini({ width, height, className, style }: Props) {
           y="-.065812"
           width="1.1818"
           height="1.159"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
           <feFlood
-            flood-color="rgb(0,0,0)"
-            flood-opacity=".2"
+            floodColor="rgb(0,0,0)"
+            floodOpacity=".2"
             in="SourceGraphic"
             result="flood"
           />

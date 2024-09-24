@@ -1,10 +1,14 @@
+import { Meme } from "@/types";
 import cn from "@/utils/classNamesHelper";
 
 interface Props {
+  meme: Meme;
   className?: string;
 }
 
-export default function MemeCard({ className }: Props) {
+export default function MemeCard({ meme, className }: Props) {
+  const makerAddress = meme.maker.toBase58();
+
   return (
     <div
       className={cn(
@@ -12,14 +16,13 @@ export default function MemeCard({ className }: Props) {
         className
       )}
     >
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-red-400 rounded-full"></div>
-          <div>John Doe</div>
+      <div className="flex items-center gap-2">
+        <div className="w-8 h-8 bg-red-400 rounded-full"></div>
+        <div>
+          John Doe ({makerAddress.slice(0, 4)}...{makerAddress.slice(-4)})
         </div>
-        <div>2d</div>
       </div>
-      <img src="https://picsum.photos/200" alt="" className="w-full" />
+      <img src={meme.imageUrl} alt="" className="w-full" />
       <div className="flex justify-between">
         <div className="flex">asd</div>
         <div className="flex">fgh</div>

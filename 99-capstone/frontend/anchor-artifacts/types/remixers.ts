@@ -61,6 +61,10 @@ export type Remixers = {
         {
           "name": "seed",
           "type": "u32"
+        },
+        {
+          "name": "imageUrl",
+          "type": "string"
         }
       ]
     },
@@ -121,6 +125,10 @@ export type Remixers = {
           {
             "name": "maker",
             "type": "pubkey"
+          },
+          {
+            "name": "imageUrl",
+            "type": "string"
           },
           {
             "name": "bump",

@@ -21,10 +21,16 @@ pub struct CreateMeme<'info> {
 }
 
 impl<'info> CreateMeme<'info> {
-    pub fn create_meme(&mut self, seed: u32, bumps: &CreateMemeBumps) -> Result<()> {
+    pub fn create_meme(
+        &mut self,
+        seed: u32,
+        image_url: String,
+        bumps: &CreateMemeBumps,
+    ) -> Result<()> {
         self.meme.set_inner(Meme {
             seed,
             maker: self.maker.key(),
+            image_url,
             bump: bumps.meme,
         });
         msg!("✅ Created a meme.");

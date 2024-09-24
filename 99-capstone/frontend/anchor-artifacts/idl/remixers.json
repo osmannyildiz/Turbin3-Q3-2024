@@ -55,6 +55,10 @@
         {
           "name": "seed",
           "type": "u32"
+        },
+        {
+          "name": "image_url",
+          "type": "string"
         }
       ]
     },
@@ -115,6 +119,10 @@
           {
             "name": "maker",
             "type": "pubkey"
+          },
+          {
+            "name": "image_url",
+            "type": "string"
           },
           {
             "name": "bump",
