@@ -19,7 +19,7 @@ export default function RootLayout({
       <body>
         <AppWalletProvider>
           <Header />
-          <main>{children}</main>
+          <main className="mt-24">{children}</main>
         </AppWalletProvider>
         <Spinner />
       </body>

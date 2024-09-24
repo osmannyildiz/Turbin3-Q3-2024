@@ -1,5 +1,6 @@
 "use client";
 
+import MemeGrid from "@/components/MemeGrid";
 import useRemixers from "@/programs/useRemixers";
 import { useStore } from "@/store";
 import { useEffect } from "react";
@@ -38,12 +39,7 @@ export default function Home() {
 
   return (
     <>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt maxime
-        esse officia? Sit quas cumque fugit tempore totam eveniet molestias
-        quos. Non illum placeat architecto harum repudiandae ipsa suscipit
-        minima.
-      </p>
+      <MemeGrid className="max-w-[900px] mx-auto" />
 
       <button type="button" onClick={() => initialize()}>
         initialize
