@@ -1,5 +1,6 @@
 import { Meme } from "@/types";
 import cn from "@/utils/classNamesHelper";
+import Link from "next/link";
 
 interface Props {
   meme: Meme;
@@ -10,7 +11,8 @@ export default function MemeCard({ meme, className }: Props) {
   const makerAddress = meme.maker.toBase58();
 
   return (
-    <div
+    <Link
+      href={`/dev/${meme.seed}`}
       className={cn(
         "bg-slate-800 rounded-lg p-2 flex flex-col gap-2",
         className
@@ -27,6 +29,6 @@ export default function MemeCard({ meme, className }: Props) {
         <div className="flex">asd</div>
         <div className="flex">fgh</div>
       </div>
-    </div>
+    </Link>
   );
 }
