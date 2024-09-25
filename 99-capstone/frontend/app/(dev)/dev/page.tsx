@@ -25,19 +25,6 @@ export default function Home() {
     fetchMemes();
   }, [remixers]);
 
-  const initialize = async () => {
-    if (!remixers) return;
-    const sig = await remixers.methods.initialize().rpc();
-    console.log(`✅ Success! Sig: ${sig}`);
-  };
-
-  const createMeme = async () => {
-    if (!remixers) return;
-    const seed = 123;
-    const sig = await remixers.methods.createMeme(seed).rpc();
-    console.log(`✅ Success! Sig: ${sig}`);
-  };
-
   const fetchMemes = async () => {
     if (!remixers) return;
     const fetchedMemes = (await remixers.account.meme.all()).map((meme) => ({
@@ -50,16 +37,6 @@ export default function Home() {
   return (
     <>
       <MemeGrid memes={memes} className="max-w-[900px] mx-auto" />
-
-      <button type="button" onClick={() => initialize()}>
-        initialize
-      </button>
-      <button type="button" onClick={() => createMeme()}>
-        create meme
-      </button>
-      <button type="button" onClick={() => fetchMemes()}>
-        fetch memes
-      </button>
     </>
   );
 }

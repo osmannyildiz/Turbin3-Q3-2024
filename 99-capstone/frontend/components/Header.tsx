@@ -18,7 +18,7 @@ export default function Header() {
   return (
     <header>
       <div
-        className={cn(styles.fadeToMemes, "fixed top-0 left-0 right-0 h-24")}
+        className={cn(styles.fadeToMemes, "fixed top-0 left-0 right-0 h-20")}
       ></div>
 
       <div className="fixed top-0 left-0 right-0 h-20 flex justify-between items-center px-6">

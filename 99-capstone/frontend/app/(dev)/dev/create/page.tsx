@@ -23,7 +23,7 @@ export default function Create() {
     const formData = new FormData(event.currentTarget);
     const imageUrl = formData.get("imageUrl") as string;
 
-    const seed = Math.ceil(Math.random() * Math.pow(2, 32));
+    const seed = Math.ceil(Math.random() * Math.pow(2, 31));
 
     const sig = await remixers.methods.createMeme(seed, imageUrl).rpc();
     console.log(`✅ Success! Sig: ${sig}`);
