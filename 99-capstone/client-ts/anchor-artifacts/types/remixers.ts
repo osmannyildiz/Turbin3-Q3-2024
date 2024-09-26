@@ -88,6 +88,101 @@ export type Remixers = {
         }
       ],
       "args": []
+    },
+    {
+      "name": "supportMeme",
+      "discriminator": [
+        70,
+        247,
+        186,
+        183,
+        110,
+        140,
+        89,
+        115
+      ],
+      "accounts": [
+        {
+          "name": "supporter",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "meme",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  101,
+                  109,
+                  101
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "memeSeed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "supporterMemeData",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  117,
+                  112,
+                  112,
+                  111,
+                  114,
+                  116,
+                  101,
+                  114,
+                  95,
+                  109,
+                  101,
+                  109,
+                  101,
+                  95,
+                  100,
+                  97,
+                  116,
+                  97
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "supporter"
+              },
+              {
+                "kind": "arg",
+                "path": "memeSeed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "memeSeed",
+          "type": "u32"
+        },
+        {
+          "name": "lamports",
+          "type": "u64"
+        }
+      ]
     }
   ],
   "accounts": [
@@ -102,6 +197,19 @@ export type Remixers = {
         194,
         135,
         26
+      ]
+    },
+    {
+      "name": "supporterMemeData",
+      "discriminator": [
+        75,
+        45,
+        227,
+        146,
+        188,
+        195,
+        60,
+        54
       ]
     }
   ],
@@ -131,8 +239,69 @@ export type Remixers = {
             "type": "string"
           },
           {
+            "name": "remixOf",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "supportersCount",
+            "type": "u16"
+          },
+          {
+            "name": "totalRaisedLamports",
+            "type": "u64"
+          },
+          {
+            "name": "topSupporters",
+            "type": {
+              "array": [
+                {
+                  "option": {
+                    "defined": {
+                      "name": "topSupporter"
+                    }
+                  }
+                },
+                16
+              ]
+            }
+          },
+          {
             "name": "bump",
             "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "supporterMemeData",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lamports",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "topSupporter",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "supporter",
+            "type": "pubkey"
+          },
+          {
+            "name": "lamports",
+            "type": "u64"
           }
         ]
       }

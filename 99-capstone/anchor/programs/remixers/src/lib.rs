@@ -22,4 +22,8 @@ pub mod remixers {
     pub fn create_meme(ctx: Context<CreateMeme>, seed: u32, image_url: String) -> Result<()> {
         ctx.accounts.create_meme(seed, image_url, &ctx.bumps)
     }
+
+    pub fn support_meme(ctx: Context<SupportMeme>, meme_seed: u32, lamports: u64) -> Result<()> {
+        ctx.accounts.support_meme(meme_seed, lamports, &ctx.bumps)
+    }
 }

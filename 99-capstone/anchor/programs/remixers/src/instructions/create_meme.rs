@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-use crate::Meme;
+use crate::{Meme, TopSupporter};
 
 #[derive(Accounts)]
 #[instruction(seed: u32)]
@@ -27,10 +27,15 @@ impl<'info> CreateMeme<'info> {
         image_url: String,
         bumps: &CreateMemeBumps,
     ) -> Result<()> {
+        const NONE: Option<TopSupporter> = None;
         self.meme.set_inner(Meme {
             seed,
             maker: self.maker.key(),
             image_url,
+            remix_of: None,
+            supporters_count: 0,
+            total_raised_lamports: 0,
+            top_supporters: [NONE; 16],
             bump: bumps.meme,
         });
         msg!("✅ Created a meme.");

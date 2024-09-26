@@ -1,7 +1,9 @@
 "use client";
 
 import useRemixers from "@/programs/useRemixers";
+import { BN } from "@coral-xyz/anchor";
 import { useConnection } from "@solana/wallet-adapter-react";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import bs58 from "bs58";
 import { useState } from "react";
 import Buffer from "tiny-buffer";
@@ -48,6 +50,14 @@ export default function DebugWidget() {
     console.log("heyy", buf);
   };
 
+  const supportMeme = async () => {
+    if (!remixers) return;
+    const sig = await remixers.methods
+      .supportMeme(1925656753, new BN(2.5 * LAMPORTS_PER_SOL))
+      .rpc();
+    console.log(`✅ Success! Sig: ${sig}`);
+  };
+
   if (isVisible) {
     return (
       <div className="fixed bottom-6 right-6 flex flex-col items-end gap-2 bg-lime-400 rounded-3xl p-4">
@@ -72,6 +82,13 @@ export default function DebugWidget() {
             onClick={() => asd()}
           >
             asd
+          </button>
+          <button
+            type="button"
+            className="bg-lime-900 px-2 py-1 rounded-lg"
+            onClick={() => supportMeme()}
+          >
+            support meme
           </button>
         </div>
         <div className="flex gap-1">

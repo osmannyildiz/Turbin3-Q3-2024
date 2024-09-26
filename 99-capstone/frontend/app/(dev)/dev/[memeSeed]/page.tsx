@@ -3,6 +3,7 @@
 import useRemixers from "@/programs/useRemixers";
 import { useStore } from "@/store";
 import { Meme } from "@/types";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import bs58 from "bs58";
 import { useEffect, useState } from "react";
 import Buffer from "tiny-buffer";
@@ -90,8 +91,8 @@ export default function MemeDetail({ params }: Props) {
           {/* meme info */}
           <ul>
             <li>Created by: {meme?.maker.toBase58()}</li>
-            <li>Supported by: TODO</li>
-            <li>Raised SOL: TODO</li>
+            <li>Supported by: {meme?.supportersCount}</li>
+            <li>Raised SOL: {meme?.totalRaisedLamports / LAMPORTS_PER_SOL}</li>
           </ul>
 
           {/* support form */}
