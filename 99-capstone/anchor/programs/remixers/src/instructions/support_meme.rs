@@ -1,4 +1,7 @@
-use anchor_lang::prelude::*;
+use anchor_lang::{
+    prelude::*,
+    system_program::{transfer, Transfer},
+};
 
 use crate::{Meme, SupporterMemeData};
 
@@ -24,6 +27,19 @@ pub struct SupportMeme<'info> {
     )]
     supporter_meme_data: Account<'info, SupporterMemeData>,
 
+    #[account(
+        mut,
+        address = meme.maker
+    )]
+    maker: SystemAccount<'info>,
+
+    #[account(
+        mut,
+        seeds = [b"vault"],
+        bump
+    )]
+    vault: SystemAccount<'info>,
+
     system_program: Program<'info, System>,
 }
 
@@ -34,9 +50,28 @@ impl<'info> SupportMeme<'info> {
         lamports: u64,
         bumps: &SupportMemeBumps,
     ) -> Result<()> {
+        // Send SOL to the maker
+        let program = self.system_program.to_account_info();
+        let accounts = Transfer {
+            from: self.supporter.to_account_info(),
+            to: self.maker.to_account_info(),
+        };
+        let ctx = CpiContext::new(program, accounts);
+        transfer(ctx, lamports / 2)?;
+
+        // Send SOL to the platform's vault
+        let program = self.system_program.to_account_info();
+        let accounts = Transfer {
+            from: self.supporter.to_account_info(),
+            to: self.vault.to_account_info(),
+        };
+        let ctx = CpiContext::new(program, accounts);
+        transfer(ctx, lamports / 2)?;
+
+        // Update data
         if self.supporter_meme_data.lamports > 0 {
             msg!("👉 Old supporter.");
-            self.supporter_meme_data.lamports += lamports;
+            self.supporter_meme_data.lamports += (lamports / 2) * 2;
         } else {
             msg!("👉 New supporter.");
             self.supporter_meme_data.set_inner(SupporterMemeData {
@@ -45,7 +80,8 @@ impl<'info> SupportMeme<'info> {
             });
             self.meme.supporters_count += 1;
         }
-        self.meme.total_raised_lamports += lamports;
+        self.meme.total_raised_lamports += (lamports / 2) * 2;
+
         msg!("✅ Supported a meme.");
         Ok(())
     }

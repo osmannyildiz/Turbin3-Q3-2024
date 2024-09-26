@@ -3,6 +3,7 @@
 import useRemixers from "@/programs/useRemixers";
 import { useStore } from "@/store";
 import { Meme } from "@/types";
+import { BN } from "@coral-xyz/anchor";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import bs58 from "bs58";
 import { useEffect, useState } from "react";
@@ -69,17 +70,19 @@ export default function MemeDetail({ params }: Props) {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!remixers) {
+    if (!remixers || !meme) {
       alert("Something went wrong! Please try again.");
       return;
     }
 
-    const formData = new FormData(event.currentTarget);
-    const imageUrl = formData.get("imageUrl") as string;
+    // const formData = new FormData(event.currentTarget);
 
-    const seed = Math.ceil(Math.random() * Math.pow(2, 31));
-
-    const sig = await remixers.methods.createMeme(seed, imageUrl).rpc();
+    const sig = await remixers.methods
+      .supportMeme(meme.seed, new BN(2.5 * LAMPORTS_PER_SOL))
+      .accounts({
+        maker: meme.maker,
+      })
+      .rpc();
     console.log(`✅ Success! Sig: ${sig}`);
   };
 
