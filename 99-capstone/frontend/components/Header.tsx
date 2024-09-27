@@ -24,7 +24,7 @@ export default function Header() {
       <div className="fixed top-0 left-0 right-0 h-20 flex justify-between items-center px-6">
         <div className="flex items-center gap-3">
           <Link
-            href="/dev/create"
+            href="/create"
             className="bg-red-800 text-white rounded-lg px-6 h-12 flex items-center"
           >
             + Create
@@ -36,7 +36,7 @@ export default function Header() {
       </div>
 
       <div className="fixed top-0 left-0 right-0 h-20 flex justify-center items-center pointer-events-none">
-        <Link href="/dev" className="pointer-events-auto">
+        <Link href="/" className="pointer-events-auto">
           <LogoFull height={60} />
         </Link>
       </div>

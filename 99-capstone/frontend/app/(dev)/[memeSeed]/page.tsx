@@ -151,6 +151,7 @@ export default function MemeDetail({ params }: Props) {
                 <li>👉 User profiles</li>
                 <li>👉 Economy</li>
                 <li>👉 Remix This Meme button</li>
+                <li>👉 69% more awesomeness</li>
               </ul>
             </div>
           </div>

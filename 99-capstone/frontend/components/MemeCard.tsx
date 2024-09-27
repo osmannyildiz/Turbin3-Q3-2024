@@ -12,7 +12,7 @@ export default function MemeCard({ meme, className }: Props) {
 
   return (
     <Link
-      href={`/dev/${meme.seed}`}
+      href={`/${meme.seed}`}
       className={cn(
         "bg-slate-800 rounded-lg p-2 flex flex-col gap-2",
         className
