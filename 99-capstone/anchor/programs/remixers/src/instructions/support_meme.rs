@@ -57,16 +57,16 @@ impl<'info> SupportMeme<'info> {
             to: self.maker.to_account_info(),
         };
         let ctx = CpiContext::new(program, accounts);
-        transfer(ctx, lamports / 2)?;
+        transfer(ctx, (lamports / 2) * 2)?;
 
         // Send SOL to the platform's vault
-        let program = self.system_program.to_account_info();
-        let accounts = Transfer {
-            from: self.supporter.to_account_info(),
-            to: self.vault.to_account_info(),
-        };
-        let ctx = CpiContext::new(program, accounts);
-        transfer(ctx, lamports / 2)?;
+        // let program = self.system_program.to_account_info();
+        // let accounts = Transfer {
+        //     from: self.supporter.to_account_info(),
+        //     to: self.vault.to_account_info(),
+        // };
+        // let ctx = CpiContext::new(program, accounts);
+        // transfer(ctx, lamports / 2)?;
 
         // Update data
         if self.supporter_meme_data.lamports > 0 {

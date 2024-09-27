@@ -169,6 +169,10 @@ export type Remixers = {
           }
         },
         {
+          "name": "maker",
+          "writable": true
+        },
+        {
           "name": "vault",
           "writable": true,
           "pda": {
@@ -185,10 +189,6 @@ export type Remixers = {
               }
             ]
           }
-        },
-        {
-          "name": "maker",
-          "writable": true
         },
         {
           "name": "systemProgram",

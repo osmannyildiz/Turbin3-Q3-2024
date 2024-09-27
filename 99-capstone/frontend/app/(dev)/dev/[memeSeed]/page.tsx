@@ -75,10 +75,12 @@ export default function MemeDetail({ params }: Props) {
       return;
     }
 
-    // const formData = new FormData(event.currentTarget);
+    const formData = new FormData(event.currentTarget);
+    const amountStr = formData.get("amount") as string;
+    const amount = Number(amountStr);
 
     const sig = await remixers.methods
-      .supportMeme(meme.seed, new BN(2.5 * LAMPORTS_PER_SOL))
+      .supportMeme(meme.seed, new BN(amount * LAMPORTS_PER_SOL))
       .accounts({
         maker: meme.maker,
       })
@@ -99,41 +101,59 @@ export default function MemeDetail({ params }: Props) {
           </ul>
 
           {/* support form */}
-          <form onSubmit={onSubmit}>
-            <div>
-              <label htmlFor="amount">SOL Amount</label>
-              <input
-                type="text"
-                id="amount"
-                name="amount"
-                className="text-black"
-              />
-            </div>
-            <button
-              type="submit"
-              className="bg-red-800 text-white rounded-lg px-6 h-12 flex items-center"
-            >
-              Support!
-            </button>
-          </form>
+          <div>
+            <h1 className="text-3xl mb-2">Support This Meme</h1>
+            <form onSubmit={onSubmit}>
+              <div className="flex flex-col max-w-[400px] mb-2">
+                <label htmlFor="amount">SOL Amount</label>
+                <input
+                  type="text"
+                  id="amount"
+                  name="amount"
+                  className="text-black"
+                />
+              </div>
+              <button
+                type="submit"
+                className="bg-red-800 text-white rounded-lg px-6 h-12 flex items-center"
+              >
+                Support!
+              </button>
+            </form>
+          </div>
 
-          {/* top supporters */}
-          <table className="border">
-            <thead>
-              <tr className="text-left">
-                <th>#</th>
-                <th>Address</th>
-                <th>SOL Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border">
-                <td>1</td>
-                <td>TODO</td>
-                <td>TODO</td>
-              </tr>
-            </tbody>
-          </table>
+          <div>
+            <h1 className="text-3xl mb-2">Top Supporters</h1>
+            <table className="border w-full">
+              <thead>
+                <tr className="text-left">
+                  <th>#</th>
+                  <th>Address</th>
+                  <th>SOL Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border">
+                  <td>1</td>
+                  <td>TODO</td>
+                  <td>TODO</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="bg-slate-800 p-6 rounded-lg mt-2 flex items-center gap-8 w-fit">
+            <img src="/images/coming-soon.jpg" alt="" className="h-48" />
+            <div>
+              <div className="text-4xl font-semibold mb-4">COMING SOON!</div>
+              <ul className="text-lg">
+                <li>👉 Leaderboards</li>
+                <li>👉 User profiles</li>
+                <li>👉 Economy</li>
+                <li>👉 Remix This Meme button</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </>

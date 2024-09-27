@@ -11,7 +11,7 @@ export default function Spinner() {
     <div
       className={cn(
         "fixed inset-0 z-50 flex justify-center items-center",
-        // "bg-black",
+        "bg-black",
         !isShowSpinner && "hidden"
       )}
     >

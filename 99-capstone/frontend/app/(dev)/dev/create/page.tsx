@@ -30,9 +30,10 @@ export default function Create() {
   };
 
   return (
-    <>
+    <div className="container mx-auto">
+      <h1 className="text-3xl mb-4">Create a Meme</h1>
       <form onSubmit={onSubmit}>
-        <div>
+        <div className="flex flex-col max-w-[400px] mb-4">
           <label htmlFor="imageUrl">Image URL</label>
           <input
             type="url"
@@ -41,7 +42,6 @@ export default function Create() {
             className="text-black"
           />
         </div>
-
         <button
           type="submit"
           className="bg-red-800 text-white rounded-lg px-6 h-12 flex items-center"
@@ -49,6 +49,18 @@ export default function Create() {
           Create!
         </button>
       </form>
-    </>
+
+      <div className="bg-slate-800 p-6 rounded-lg mt-8 flex items-center gap-8 w-fit">
+        <img src="/images/coming-soon.jpg" alt="" className="h-48" />
+        <div>
+          <div className="text-4xl font-semibold mb-4">COMING SOON!</div>
+          <ul className="text-lg">
+            <li>👉 Upload image to our server</li>
+            <li>👉 Upload image to Arweave</li>
+            <li>👉 Add metadata (title, tags, etc.)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -10,7 +10,7 @@ export default function Home() {
   const remixers = useRemixers();
   const setIsShowSpinner = useStore((state) => state.setIsShowSpinner);
 
-  const [memes, setMemes] = useState<Meme[]>([]);
+  const [memes, setMemes] = useState<Meme[]>();
 
   useEffect(() => {
     const timeout = setTimeout(() => {

@@ -163,6 +163,10 @@
           }
         },
         {
+          "name": "maker",
+          "writable": true
+        },
+        {
           "name": "vault",
           "writable": true,
           "pda": {
@@ -179,10 +183,6 @@
               }
             ]
           }
-        },
-        {
-          "name": "maker",
-          "writable": true
         },
         {
           "name": "system_program",
