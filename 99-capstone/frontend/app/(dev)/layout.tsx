@@ -1,6 +1,5 @@
 import "@/app/globals.css";
 import AppWalletProvider from "@/components/AppWalletProvider";
-import DebugWidget from "@/components/DebugWidget";
 import Header from "@/components/Header";
 import Spinner from "@/components/Spinner";
 import type { Metadata } from "next";
@@ -21,7 +20,7 @@ export default function RootLayout({
         <AppWalletProvider>
           <Header />
           <main className="mt-24">{children}</main>
-          <DebugWidget />
+          {/* <DebugWidget /> */}
         </AppWalletProvider>
         <Spinner />
       </body>

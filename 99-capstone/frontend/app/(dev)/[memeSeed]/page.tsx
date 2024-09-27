@@ -86,6 +86,7 @@ export default function MemeDetail({ params }: Props) {
       })
       .rpc();
     console.log(`✅ Success! Sig: ${sig}`);
+    alert("✅ Success! Refresh the page to see the updated data.");
   };
 
   return (

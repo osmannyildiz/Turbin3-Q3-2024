@@ -27,6 +27,9 @@ export default function Create() {
 
     const sig = await remixers.methods.createMeme(seed, imageUrl).rpc();
     console.log(`✅ Success! Sig: ${sig}`);
+    alert(
+      "✅ Success! Navigate to the home page to see your creation listed (might need to refresh the page)."
+    );
   };
 
   return (
