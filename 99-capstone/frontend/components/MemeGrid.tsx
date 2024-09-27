@@ -9,7 +9,7 @@ interface Props {
 
 export default function MemeGrid({ memes, className }: Props) {
   if (!memes) {
-    return <div className="text-center mx-auto">Loading...</div>;
+    return <div className="text-center mx-auto">Loading... (connect your wallet if you didn&apos;t)</div>;
   }
 
   if (memes.length === 0) {
