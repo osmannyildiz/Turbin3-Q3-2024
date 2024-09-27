@@ -4,4 +4,8 @@ Work in progress.
 
 Current status:
 
-![Current status](https://raw.githubusercontent.com/osmannyildiz/Turbin3-Q3-2024/refs/heads/master/99-capstone/assets/ss.png)
+![Screenshot 1](https://raw.githubusercontent.com/osmannyildiz/Turbin3-Q3-2024/refs/heads/master/99-capstone/assets/ss01.png)
+
+![Screenshot 2](https://raw.githubusercontent.com/osmannyildiz/Turbin3-Q3-2024/refs/heads/master/99-capstone/assets/ss02.png)
+
+![Screenshot 3](https://raw.githubusercontent.com/osmannyildiz/Turbin3-Q3-2024/refs/heads/master/99-capstone/assets/ss03.png)
