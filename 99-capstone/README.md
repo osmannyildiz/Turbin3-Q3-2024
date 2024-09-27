@@ -1,5 +1,8 @@
 # Remixers ([remixers.app](https://remixers.app/))
 
+> Deployed to Solana Devnet on September 27.
+> Address: 4vm6E7yANSLWdBFuPTvafnXY6q8v6XKRzRYSYghGrJV1 [(explorer)](https://explorer.solana.com/address/4vm6E7yANSLWdBFuPTvafnXY6q8v6XKRzRYSYghGrJV1?cluster=devnet)
+
 Work in progress.
 
 Current status:

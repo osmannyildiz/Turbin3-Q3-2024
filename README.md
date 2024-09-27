@@ -1,5 +1,7 @@
 # Turbin3 Builders Course (Q3, 2024)
 
+> Note to Turbin3 team: For the capstone project, [click here](https://github.com/solana-turbin3/Q3T_Sol_osmannyildiz/tree/master/99-capstone).
+
 ## Transactions
 
 - SPL Token mint creation: https://explorer.solana.com/tx/37mAHbyS6AfNKdhFCc4WC1DfUvqfQWzxocv4SGXMqHk7acariFHY4WJRhFwjfHKjdDK8atQcgwER4BCa68ZDaVuk?cluster=devnet
