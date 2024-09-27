@@ -1,6 +1,6 @@
 # Turbin3 Builders Course (Q3, 2024)
 
-> Note to Turbin3 team: For the capstone project, [click here](https://github.com/solana-turbin3/Q3T_Sol_osmannyildiz/tree/master/99-capstone).
+> 👉 Note to Turbin3 team: For the capstone project, [click here](https://github.com/solana-turbin3/Q3T_Sol_osmannyildiz/tree/master/99-capstone).
 
 ## Transactions
 
